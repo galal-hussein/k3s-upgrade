@@ -65,15 +65,16 @@ check_hash(){
 }
 
 prepare() {
+  KUBECTL_BIN="/opt/k3s kubectl"
   MASTER_PLAN=${1}
   if [ -z "$MASTER_PLAN" ]; then
     fatal "Master Plan name is not passed to the prepare step. Exiting"
   fi
   NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
   # make sure master plan does exist
-  kubectl get plan $MASTER_PLAN -n $NAMESPACE &>/dev/null || fatal "master plan $MASTER_PLAN doesn't exist"
+  ${KUBECTL_BIN} get plan $MASTER_PLAN -n $NAMESPACE &>/dev/null || fatal "master plan $MASTER_PLAN doesn't exist"
   while true; do
-    NUM_NODES=$(kubectl get plan $MASTER_PLAN -n $NAMESPACE -o json | jq '.status.applying | length')
+    NUM_NODES=$(${KUBECTL_BIN} get plan $MASTER_PLAN -n $NAMESPACE -o json | jq '.status.applying | length')
     if [ "$NUM_NODES" == "0" ]; then
       break
     fi
