@@ -14,6 +14,7 @@ steps:
   volumes:
     - name: docker
       path: /var/run/docker.sock
+
 - name: docker-publish
   image: plugins/docker
   build_args_from_env:
@@ -57,6 +58,7 @@ steps:
   volumes:
     - name: docker
       path: /var/run/docker.sock
+
 - name: docker-publish
   image: plugins/docker
   build_args_from_env:
@@ -100,6 +102,7 @@ steps:
   volumes:
     - name: docker
       path: /var/run/docker.sock
+
 - name: docker-publish
   image: plugins/docker
   build_args_from_env:

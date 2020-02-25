@@ -1,7 +1,9 @@
 FROM alpine:3.10
 
 ARG ARCH
+ENV ARCH $ARCH
 ARG DRONE_TAG
+ENV DRONE_TAG $DRONE_TAG
 
 ENV K3S_RELEASE https://github.com/rancher/k3s/releases/download/${DRONE_TAG}/k3s${ARCH}
 ENV K3S_RELEASE_CHECKSUM https://github.com/rancher/k3s/releases/download/${DRONE_TAG}/sha256sum${ARCH}.txt
